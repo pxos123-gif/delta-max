@@ -22,16 +22,16 @@
 </head>
 <body>
 
-    <!-- الأبديت والنقطة المخفية وملف الصوت Haha.mp3 -->
+    <!-- الأبديت والنقطة المخفية وملف الصوت Music.mp3 -->
     <div id="updateLayer">
         <div class="secret-dot" onclick="checkAdmin()"></div>
         <div class="box">
-            <h1>SYSTEM SOON!</h1>
+            <h1>SYSTEM UPDATE</h1>
             <p style="opacity: 0.7; margin: 15px 0;">اضغط هنا لتفعيل الصوت والنظام</p>
             <button class="btn main-btn" onclick="startAudioAndSite()" style="margin: 0 auto;">تحديث / Start</button>
         </div>
         <audio id="updateAudio" loop>
-            <source src="Haha.mp3" type="audio/mpeg">
+            <source src="Music.mp3" type="audio/mpeg">
         </audio>
     </div>
 
@@ -56,16 +56,14 @@
         }
     }
 
-    // زرار التشغيل اللي بيخلي المتصفح يوافق يشغل الأغنية فوراً
+    // زرار التشغيل لتجاوز حظر المتصفح للأصوات التلقائية
     function startAudioAndSite() {
         let audio = document.getElementById('updateAudio');
         audio.play().then(() => {
             console.log("تم تشغيل الأغنية بنجاح");
         }).catch(e => {
-            alert("خطأ في تشغيل الصوت، تأكد أن اسم ملف Haha.mp3 مكتوب بنفس الحروف تماماً على جيت هب");
+            alert("خطأ في تشغيل الصوت، تأكد أن اسم ملف Music.mp3 مطابق تماماً لما هو مرفوع على جيت هب");
         });
-        
-        // لو عايز لما يضغط زرار التحديث الشاشة تفضل ظاهرة أو تقفل، براحتك (دلوقت هيفضل الأبديت شغال بالأغنية)
     }
 
     function checkAdmin() {
@@ -89,4 +87,4 @@
     }
 </script>
 </body>
-</html>[span_1](start_span)[span_1](end_span)
+</html>
