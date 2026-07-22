@@ -25,7 +25,7 @@
     <!-- الأبديت والنقطة المخفية -->
     <div id="updateLayer">
         <div class="secret-dot" onclick="checkAdmin()"></div>
-        <div class="box"><h1>SYSTEM UPDATE</h1></div>
+        <div class="box"><h1>SYSTEM SOON!</h1></div>
     </div>
 
     <div class="secret-dot" onclick="checkAdmin()"></div>
@@ -41,7 +41,7 @@
 
 <script>
     // === التحكم في الأبديت ===
-    const isUpdateActive = false; // غيرها لـ true لإظهار صفحة الأبديت
+    const isUpdateActive = true; // غيرها لـ true لإظهار صفحة الأبديت
     window.onload = () => { if (isUpdateActive) document.getElementById('updateLayer').style.display = 'flex'; }
 
     function checkAdmin() {
