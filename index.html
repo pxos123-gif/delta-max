@@ -8,7 +8,7 @@
         @keyframes gradientMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
         /* الأبديت */
-        #updateLayer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(15px); display: none; flex-direction: column; justify-content: center; align-items: center; }
+        #updateLayer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px); display: none; flex-direction: column; justify-content: center; align-items: center; }
         .box { padding: 40px; border: 2px solid rgba(255, 0, 0, 0.5); border-radius: 20px; background: rgba(0, 0, 0, 0.5); }
         .secret-dot { width: 80px; height: 40px; cursor: pointer; background: transparent; z-index: 10000; position: absolute; top: 10%; }
 
@@ -22,10 +22,16 @@
 </head>
 <body>
 
-    <!-- الأبديت والنقطة المخفية -->
+    <!-- الأبديت والنقطة المخفية وملف الصوت المحلي -->
     <div id="updateLayer">
         <div class="secret-dot" onclick="checkAdmin()"></div>
-        <div class="box"><h1>SYSTEM SOON!</h1></div>
+        <div class="box">
+            <h1>SYSTEM SOON!</h1>
+            <p style="opacity: 0.7; margin-top: 10px;">جاري تحديث النظام...</p>
+        </div>
+        <audio id="updateAudio" loop>
+            <source src="music.mp3" type="audio/mpeg">
+        </audio>
     </div>
 
     <div class="secret-dot" onclick="checkAdmin()"></div>
@@ -40,14 +46,28 @@
     <button onclick="toggleLang()" style="margin-top:20px; background:none; border:1px solid #fff; color:#fff; padding:5px 15px; border-radius:5px; cursor:pointer;">عربي / English</button>
 
 <script>
-    // === التحكم في الأبديت ===
-    const isUpdateActive = true; // غيرها لـ true لإظهار صفحة الأبديت
-    window.onload = () => { if (isUpdateActive) document.getElementById('updateLayer').style.display = 'flex'; }
+    // === التحكم في الأبديت والصوت ===
+    const isUpdateActive = true; // غيرها لـ true لتجربة إظهار الأبديت والصوت
+    
+    window.onload = () => { 
+        if (isUpdateActive) {
+            document.getElementById('updateLayer').style.display = 'flex';
+            let audio = document.getElementById('updateAudio');
+            audio.play().catch(error => {
+                console.log("المتصفح منع التشغيل التلقائي حتى يتم تفاعل المستخدم");
+            });
+        }
+    }
 
     function checkAdmin() {
         const p = prompt("Enter Code:");
-        if (p === "1234") alert("Admin Access Granted");
-        else alert("Wrong Code!");
+        if (p === "1234") {
+            alert("Admin Access Granted");
+            document.getElementById('updateLayer').style.display = 'none';
+            document.getElementById('updateAudio').pause();
+        } else {
+            alert("Wrong Code!");
+        }
     }
 
     // === تغيير اللغة ===
