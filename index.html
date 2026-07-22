@@ -22,16 +22,16 @@
 </head>
 <body>
 
-    <!-- الأبديت والنقطة المخفية وملف الصوت Music.mp3 -->
+    <!-- نافذة الأبديت مع رابط صوت مباشر ومضمون -->
     <div id="updateLayer" style="display: none;">
         <div class="secret-dot" onclick="checkAdmin()"></div>
         <div class="box">
             <h1>SYSTEM UPDATE</h1>
-            <p style="opacity: 0.7; margin: 15px 0;">اضغط هنا لتفعيل الصوت والنظام</p>
+            <p style="opacity: 0.7; margin: 15px 0;">اضغط هنا لتفعيل الصوت والدخول</p>
             <button class="btn main-btn" onclick="startAudioAndSite()" style="margin: 0 auto;">تحديث / Start</button>
         </div>
-        <audio id="updateAudio" preload="auto" loop>
-            <source src="Music.mp3" type="audio/mpeg">
+        <audio id="updateAudio" loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
         </audio>
     </div>
 
@@ -48,7 +48,7 @@
 
 <script>
     // === التحكم في إظهار الأبديت ===
-    // خليه false عشان يختفي، و true عشان يظهر
+    // خليه false لو مش عاوز الأبديت يظهر، أو true لو عاوز تجربه
     const isUpdateActive = true; 
     
     window.onload = () => { 
@@ -60,15 +60,14 @@
         }
     }
 
-    // زرار تشغيل الصوت وإخفاء الأبديت بعد التحديث
+    // زرار تشغيل الصوت والدخول
     function startAudioAndSite() {
         let audio = document.getElementById('updateAudio');
         audio.play().then(() => {
-            console.log("تم تشغيل الأغنية بنجاح");
-            // لو عايز لما يضغط زرار التحديث الأبديت يقفل والأغنية تكمل شغال، شيل علامة الـ // من السطر اللي تحت:
+            // لو عايز نافذة الأبديت تقفل أول ما تضغط زرار التحديث والصوت يشتغل، شيل الشرطة المائلة من السطر اللي تحت
             // document.getElementById('updateLayer').style.display = 'none';
         }).catch(e => {
-            alert("خطأ: تأكد أن ملف Music.mp3 مرفوع في نفس مجلد الموقع وحروفه صحيحة تماماً");
+            alert("حدث خطأ في تشغيل الصوت من المتصفح");
         });
     }
 
