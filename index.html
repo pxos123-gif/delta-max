@@ -23,14 +23,14 @@
 <body>
 
     <!-- الأبديت والنقطة المخفية وملف الصوت Music.mp3 -->
-    <div id="updateLayer">
+    <div id="updateLayer" style="display: none;">
         <div class="secret-dot" onclick="checkAdmin()"></div>
         <div class="box">
             <h1>SYSTEM UPDATE</h1>
             <p style="opacity: 0.7; margin: 15px 0;">اضغط هنا لتفعيل الصوت والنظام</p>
             <button class="btn main-btn" onclick="startAudioAndSite()" style="margin: 0 auto;">تحديث / Start</button>
         </div>
-        <audio id="updateAudio" loop>
+        <audio id="updateAudio" preload="auto" loop>
             <source src="Music.mp3" type="audio/mpeg">
         </audio>
     </div>
@@ -48,21 +48,27 @@
 
 <script>
     // === التحكم في إظهار الأبديت ===
-    const isUpdateActive = true; // خليها true عشان تظهر الأبديت وتجرب الزرار والصوت
+    // خليه false عشان يختفي، و true عشان يظهر
+    const isUpdateActive = true; 
     
     window.onload = () => { 
-        if (isUpdateActive) {
-            document.getElementById('updateLayer').style.display = 'flex';
+        const updateLayer = document.getElementById('updateLayer');
+        if (isUpdateActive === true) {
+            updateLayer.style.display = 'flex';
+        } else {
+            updateLayer.style.display = 'none';
         }
     }
 
-    // زرار التشغيل لتجاوز حظر المتصفح للأصوات التلقائية
+    // زرار تشغيل الصوت وإخفاء الأبديت بعد التحديث
     function startAudioAndSite() {
         let audio = document.getElementById('updateAudio');
         audio.play().then(() => {
             console.log("تم تشغيل الأغنية بنجاح");
+            // لو عايز لما يضغط زرار التحديث الأبديت يقفل والأغنية تكمل شغال، شيل علامة الـ // من السطر اللي تحت:
+            // document.getElementById('updateLayer').style.display = 'none';
         }).catch(e => {
-            alert("خطأ في تشغيل الصوت، تأكد أن اسم ملف Music.mp3 مطابق تماماً لما هو مرفوع على جيت هب");
+            alert("خطأ: تأكد أن ملف Music.mp3 مرفوع في نفس مجلد الموقع وحروفه صحيحة تماماً");
         });
     }
 
