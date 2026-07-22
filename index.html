@@ -8,7 +8,7 @@
         @keyframes gradientMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
         /* الأبديت */
-        #updateLayer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(15px); display: none; flex-direction: column; justify-content: center; align-items: center; }
+        #updateLayer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(15px); display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .box { padding: 40px; border: 2px solid rgba(255, 0, 0, 0.5); border-radius: 20px; background: rgba(0, 0, 0, 0.5); text-align: center; }
         .secret-dot { width: 80px; height: 40px; cursor: pointer; background: transparent; z-index: 10000; position: absolute; top: 10%; }
 
@@ -22,14 +22,15 @@
 </head>
 <body>
 
-    <!-- نافذة الأبديت وأغنيتك الخاصة Music.mp3 -->
+    <!-- نافذة الأبديت وزرار التشغيل وأغنيتك Music.mp3 -->
     <div id="updateLayer">
         <div class="secret-dot" onclick="checkAdmin()"></div>
         <div class="box">
             <h1>SYSTEM UPDATE</h1>
-            <p style="opacity: 0.7; margin: 15px 0;">جاري تحديث النظام وتشغيل أغنيتك...</p>
+            <p style="opacity: 0.7; margin: 15px 0;">اضغط هنا لتشغيل أغنيتك والنظام</p>
+            <button class="btn main-btn" onclick="startAudioAndSite()" style="margin: 0 auto;">تحديث / Start</button>
         </div>
-        <audio id="updateAudio" autoplay loop preload="auto">
+        <audio id="updateAudio" preload="auto" loop>
             <source src="Music.mp3" type="audio/mpeg">
         </audio>
     </div>
@@ -46,25 +47,15 @@
     <button onclick="toggleLang()" style="margin-top:20px; background:none; border:1px solid #fff; color:#fff; padding:5px 15px; border-radius:5px; cursor:pointer;">عربي / English</button>
 
 <script>
-    // === التحكم في إظهار أو إخفاء نافذة الأبديت ===
-    // خليه true عشان تظهر الأبديت، أو false عشان تختفي وتدخل على الموقع علطول
-    const isUpdateActive = true; 
-
-    window.addEventListener('DOMContentLoaded', () => { 
-        const updateLayer = document.getElementById('updateLayer');
-        if (isUpdateActive === true) {
-            updateLayer.style.display = 'flex';
-        } else {
-            updateLayer.style.display = 'none';
-        }
-
+    // زرار التشغيل لتجاوز حظر المتصفح وتشغيل الأغنية وسحب شاشة الأبديت
+    function startAudioAndSite() {
         let audio = document.getElementById('updateAudio');
-        audio.play().catch(() => {
-            window.addEventListener('pointerdown', () => {
-                audio.play();
-            }, { once: true });
+        audio.play().then(() => {
+            document.getElementById('updateLayer').style.display = 'none';
+        }).catch(e => {
+            alert("تأكد أن ملف Music.mp3 مرفوع في نفس الفولحر وبنفس الاسم تماماً");
         });
-    });
+    }
 
     function checkAdmin() {
         const p = prompt("Enter Code:");
