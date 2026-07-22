@@ -22,14 +22,13 @@
 </head>
 <body>
 
-    <!-- نافذة الأبديت -->
+    <!-- نافذة الأبديت وأغنيتك الخاصة Music.mp3 -->
     <div id="updateLayer">
         <div class="secret-dot" onclick="checkAdmin()"></div>
         <div class="box">
             <h1>SYSTEM UPDATE</h1>
-            <p style="opacity: 0.7; margin: 15px 0;">جاري تحديث النظام وتشغيل الموسيقى...</p>
+            <p style="opacity: 0.7; margin: 15px 0;">جاري تحديث النظام وتشغيل أغنيتك...</p>
         </div>
-        <!-- تم تفعيل الأتوبلاي هنا -->
         <audio id="updateAudio" autoplay loop preload="auto">
             <source src="Music.mp3" type="audio/mpeg">
         </audio>
@@ -47,11 +46,10 @@
     <button onclick="toggleLang()" style="margin-top:20px; background:none; border:1px solid #fff; color:#fff; padding:5px 15px; border-radius:5px; cursor:pointer;">عربي / English</button>
 
 <script>
-    // تشغيل الصوت فوراً أول ما الصفحة تفتح أو أول لمسة للشاشة (تتجاوز منع المتصفح)
+    // تشغيل أغنيتك الخاصة تلقائياً أو مع أول لمسة للشاشة
     window.addEventListener('DOMContentLoaded', () => {
         let audio = document.getElementById('updateAudio');
         audio.play().catch(() => {
-            // لو المتصفح منع التشغيل التلقائي البحت، أول لمسة في أي مكان في الشاشة هتفعل الأغنية فوراً زي المواقع الكبيرة
             window.addEventListener('pointerdown', () => {
                 audio.play();
             }, { once: true });
